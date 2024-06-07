@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/05/2024 às 16:32
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Tempo de geração: 07/06/2024 às 17:44
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,6 +60,13 @@ CREATE TABLE `produtor` (
   `codregiao` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `produtor`
+--
+
+INSERT INTO `produtor` (`produtor_id`, `produtor`, `moradaProdutor`, `telefone`, `email`, `codregiao`) VALUES
+(1, 'Qt.Vallado', 'Régua', '254323147', 'vallado@mail.telepac.pt', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +77,17 @@ CREATE TABLE `regiao` (
   `idregiao` int(11) NOT NULL,
   `regiao` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `regiao`
+--
+
+INSERT INTO `regiao` (`idregiao`, `regiao`) VALUES
+(1, 'Dão'),
+(2, 'Douro'),
+(3, 'Alenteijo'),
+(4, 'ETECMCM'),
+(5, 'Fazenda da Etec');
 
 -- --------------------------------------------------------
 
@@ -139,13 +157,13 @@ ALTER TABLE `casta`
 -- AUTO_INCREMENT de tabela `produtor`
 --
 ALTER TABLE `produtor`
-  MODIFY `produtor_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `produtor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `regiao`
 --
 ALTER TABLE `regiao`
-  MODIFY `idregiao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idregiao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `vinho`
