@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Ago-2024 às 13:57
+-- Tempo de geração: 02-Set-2024 às 13:58
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.0.25
 
@@ -126,18 +126,20 @@ CREATE TABLE `imovel` (
   `quintal` tinyint(1) DEFAULT NULL,
   `suite` tinyint(1) DEFAULT NULL,
   `piscina` tinyint(1) DEFAULT NULL,
-  `id_proprietario` int(11) DEFAULT NULL
+  `id_proprietario` int(11) DEFAULT NULL,
+  `QtBanheiros` int(11) DEFAULT NULL,
+  `Garagem` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `imovel`
 --
 
-INSERT INTO `imovel` (`id_imovel`, `lavanderia`, `alugado`, `area`, `comodos`, `quintal`, `suite`, `piscina`, `id_proprietario`) VALUES
-(1, 1, 0, '100m²', 3, 1, 0, 1, 1),
-(2, 0, 1, '80m²', 2, 0, 1, 0, 2),
-(3, 1, 0, '120m²', 4, 1, 1, 1, 3),
-(4, 0, 1, '90m²', 3, 1, 0, 0, 4);
+INSERT INTO `imovel` (`id_imovel`, `lavanderia`, `alugado`, `area`, `comodos`, `quintal`, `suite`, `piscina`, `id_proprietario`, `QtBanheiros`, `Garagem`) VALUES
+(1, 1, 0, '100m²', 4, 1, 0, 1, 1, 1, b'1'),
+(2, 1, 1, '80m²', 6, 0, 1, 0, 2, 2, b'1'),
+(3, 1, 0, '120m²', 2, 1, 1, 1, 3, 1, b'0'),
+(4, 1, 1, '90m²', 4, 1, 0, 0, 4, 1, b'0');
 
 -- --------------------------------------------------------
 
@@ -152,8 +154,20 @@ CREATE TABLE `inquilino` (
   `telefone` varchar(20) DEFAULT NULL,
   `nome` varchar(100) DEFAULT NULL,
   `rg` varchar(30) DEFAULT NULL,
-  `id_fiador` int(11) DEFAULT NULL
+  `id_fiador` int(11) DEFAULT NULL,
+  `salario` decimal(7,2) NOT NULL,
+  `dataNasc` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Extraindo dados da tabela `inquilino`
+--
+
+INSERT INTO `inquilino` (`id_inquilino`, `cpf`, `email`, `telefone`, `nome`, `rg`, `id_fiador`, `salario`, `dataNasc`) VALUES
+(1, '123.456.789-00', 'joao.silva@example.com', '8765-4321', 'João Silva', 'MG-12.345.678', 1, '2500.00', '1985-06-15'),
+(2, '234.567.890-11', 'maria.santos@example.com', '9876-5432', 'Maria Santos', 'SP-23.456.789', 2, '3200.50', '1990-11-22'),
+(3, '345.678.901-22', 'pedro.alves@example.com', '1234-5678', 'Pedro Alves', 'RJ-34.567.890', 3, '2700.75', '1982-03-10'),
+(4, '456.789.012-33', 'ana.pereira@example.com', '2345-6789', 'Ana Pereira', 'RS-45.678.901', 4, '3100.00', '1995-08-05');
 
 -- --------------------------------------------------------
 
@@ -187,10 +201,11 @@ CREATE TABLE `proprietario` (
 --
 
 INSERT INTO `proprietario` (`id_proprietario`, `nome`, `email`, `telefone`, `cpf`, `rg`) VALUES
-(1, 'Everton Olhos', 'everton.olhos@example.com', '(11) 98865-4321', '123.456.789-00', '12.345.678-9'),
-(2, ' João Paulo', ' joao.paulo@example.com', '(21) 97354-3220', '234.567.890-34', '23.456.719-0'),
-(3, ' Maria Mariana', 'maria.oliveira@example.com', '(31) 96543-2109', '545.678.901-02', '14.267.852-1'),
-(4, ' Paulo Silva', 'paulo.silva@example.com', '(11) 94444-4553', '456.568.561-45', '11.457.843-0');
+(1, 'Everton Olhos', 'everton.olhos@example.com', '118765-4321', '123.456.789-00', '12.345.678-9'),
+(2, ' João Paulo', ' joao.paulo@example.com', '119876-5432', '234.567.890-34', '23.456.719-0'),
+(3, ' Maria Mariana', 'maria.oliveira@example.com', '118765-4321', '545.678.901-02', '14.267.852-1'),
+(4, ' Paulo Silva', 'paulo.silva@example.com', '111234-5678', '456.568.561-45', '11.457.843-0'),
+(5, 'Marcos Araújo', 'marcos@email.com', '112345-6789', '541.232.242-32', '54.233.323-5');
 
 --
 -- Índices para tabelas despejadas
@@ -298,7 +313,7 @@ ALTER TABLE `imovel`
 -- AUTO_INCREMENT de tabela `inquilino`
 --
 ALTER TABLE `inquilino`
-  MODIFY `id_inquilino` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_inquilino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `midia`
@@ -310,7 +325,7 @@ ALTER TABLE `midia`
 -- AUTO_INCREMENT de tabela `proprietario`
 --
 ALTER TABLE `proprietario`
-  MODIFY `id_proprietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_proprietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restrições para despejos de tabelas
