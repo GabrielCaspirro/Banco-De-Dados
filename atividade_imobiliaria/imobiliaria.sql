@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Set-2024 às 13:58
--- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.0.25
+-- Tempo de geração: 09/09/2024 às 11:20
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,7 @@ USE `imobiliaria`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `aluguel`
+-- Estrutura para tabela `aluguel`
 --
 
 CREATE TABLE `aluguel` (
@@ -39,10 +39,20 @@ CREATE TABLE `aluguel` (
   `id_inquilino` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Despejando dados para a tabela `aluguel`
+--
+
+INSERT INTO `aluguel` (`id_aluguel`, `prazo`, `data_inicio`, `preco`, `id_imovel`, `id_corretor`, `id_inquilino`) VALUES
+(1, '2025-01-15', '2024-10-01', 1800.75, 1, 1, 1),
+(2, '2024-11-30', '2024-09-15', 1250.00, 2, 2, 2),
+(3, '2025-03-10', '2024-12-01', 2000.25, 3, 3, 3),
+(4, '2024-12-20', '2024-09-20', 1750.50, 4, 4, 4);
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `corretor`
+-- Estrutura para tabela `corretor`
 --
 
 CREATE TABLE `corretor` (
@@ -55,7 +65,7 @@ CREATE TABLE `corretor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `corretor`
+-- Despejando dados para a tabela `corretor`
 --
 
 INSERT INTO `corretor` (`id_corretor`, `email`, `telefone`, `rg`, `nome`, `cpf`) VALUES
@@ -68,7 +78,7 @@ INSERT INTO `corretor` (`id_corretor`, `email`, `telefone`, `rg`, `nome`, `cpf`)
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `endereco`
+-- Estrutura para tabela `endereco`
 --
 
 CREATE TABLE `endereco` (
@@ -89,7 +99,7 @@ CREATE TABLE `endereco` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `fiador`
+-- Estrutura para tabela `fiador`
 --
 
 CREATE TABLE `fiador` (
@@ -102,7 +112,7 @@ CREATE TABLE `fiador` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `fiador`
+-- Despejando dados para a tabela `fiador`
 --
 
 INSERT INTO `fiador` (`id_fiador`, `email`, `rg`, `cpf`, `telefone`, `nome`) VALUES
@@ -114,7 +124,7 @@ INSERT INTO `fiador` (`id_fiador`, `email`, `rg`, `cpf`, `telefone`, `nome`) VAL
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `imovel`
+-- Estrutura para tabela `imovel`
 --
 
 CREATE TABLE `imovel` (
@@ -128,23 +138,26 @@ CREATE TABLE `imovel` (
   `piscina` tinyint(1) DEFAULT NULL,
   `id_proprietario` int(11) DEFAULT NULL,
   `QtBanheiros` int(11) DEFAULT NULL,
-  `Garagem` bit(1) NOT NULL
+  `Garagem` bit(1) NOT NULL,
+  `bairro` varchar(100) DEFAULT NULL,
+  `cidade` varchar(100) DEFAULT NULL,
+  `preco` decimal(7,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `imovel`
+-- Despejando dados para a tabela `imovel`
 --
 
-INSERT INTO `imovel` (`id_imovel`, `lavanderia`, `alugado`, `area`, `comodos`, `quintal`, `suite`, `piscina`, `id_proprietario`, `QtBanheiros`, `Garagem`) VALUES
-(1, 1, 0, '100m²', 4, 1, 0, 1, 1, 1, b'1'),
-(2, 1, 1, '80m²', 6, 0, 1, 0, 2, 2, b'1'),
-(3, 1, 0, '120m²', 2, 1, 1, 1, 3, 1, b'0'),
-(4, 1, 1, '90m²', 4, 1, 0, 0, 4, 1, b'0');
+INSERT INTO `imovel` (`id_imovel`, `lavanderia`, `alugado`, `area`, `comodos`, `quintal`, `suite`, `piscina`, `id_proprietario`, `QtBanheiros`, `Garagem`, `bairro`, `cidade`, `preco`) VALUES
+(1, 1, 0, '100m²', 4, 1, 0, 1, 1, 1, b'1', NULL, NULL, NULL),
+(2, 1, 1, '80m²', 6, 0, 1, 0, 2, 2, b'1', NULL, NULL, NULL),
+(3, 1, 0, '120m²', 2, 1, 1, 1, 3, 1, b'0', NULL, NULL, NULL),
+(4, 1, 1, '90m²', 4, 1, 0, 0, 4, 1, b'0', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `inquilino`
+-- Estrutura para tabela `inquilino`
 --
 
 CREATE TABLE `inquilino` (
@@ -160,19 +173,19 @@ CREATE TABLE `inquilino` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `inquilino`
+-- Despejando dados para a tabela `inquilino`
 --
 
 INSERT INTO `inquilino` (`id_inquilino`, `cpf`, `email`, `telefone`, `nome`, `rg`, `id_fiador`, `salario`, `dataNasc`) VALUES
-(1, '123.456.789-00', 'joao.silva@example.com', '8765-4321', 'João Silva', 'MG-12.345.678', 1, '2500.00', '1985-06-15'),
-(2, '234.567.890-11', 'maria.santos@example.com', '9876-5432', 'Maria Santos', 'SP-23.456.789', 2, '3200.50', '1990-11-22'),
-(3, '345.678.901-22', 'pedro.alves@example.com', '1234-5678', 'Pedro Alves', 'RJ-34.567.890', 3, '2700.75', '1982-03-10'),
-(4, '456.789.012-33', 'ana.pereira@example.com', '2345-6789', 'Ana Pereira', 'RS-45.678.901', 4, '3100.00', '1995-08-05');
+(1, '123.456.789-00', 'joao.silva@example.com', '8765-4321', 'João Silva', 'MG-12.345.678', 1, 2500.00, '1985-06-15'),
+(2, '234.567.890-11', 'maria.santos@example.com', '9876-5432', 'Maria Santos', 'SP-23.456.789', 2, 3200.50, '1990-11-22'),
+(3, '345.678.901-22', 'pedro.alves@example.com', '1234-5678', 'Pedro Alves', 'RJ-34.567.890', 3, 2700.75, '1982-03-10'),
+(4, '456.789.012-33', 'ana.pereira@example.com', '2345-6789', 'Ana Pereira', 'RS-45.678.901', 4, 3100.00, '1995-08-05');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `midia`
+-- Estrutura para tabela `midia`
 --
 
 CREATE TABLE `midia` (
@@ -184,7 +197,7 @@ CREATE TABLE `midia` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `proprietario`
+-- Estrutura para tabela `proprietario`
 --
 
 CREATE TABLE `proprietario` (
@@ -197,7 +210,7 @@ CREATE TABLE `proprietario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `proprietario`
+-- Despejando dados para a tabela `proprietario`
 --
 
 INSERT INTO `proprietario` (`id_proprietario`, `nome`, `email`, `telefone`, `cpf`, `rg`) VALUES
@@ -212,7 +225,7 @@ INSERT INTO `proprietario` (`id_proprietario`, `nome`, `email`, `telefone`, `cpf
 --
 
 --
--- Índices para tabela `aluguel`
+-- Índices de tabela `aluguel`
 --
 ALTER TABLE `aluguel`
   ADD PRIMARY KEY (`id_aluguel`),
@@ -221,7 +234,7 @@ ALTER TABLE `aluguel`
   ADD KEY `id_inquilino` (`id_inquilino`);
 
 --
--- Índices para tabela `corretor`
+-- Índices de tabela `corretor`
 --
 ALTER TABLE `corretor`
   ADD PRIMARY KEY (`id_corretor`),
@@ -230,7 +243,7 @@ ALTER TABLE `corretor`
   ADD UNIQUE KEY `cpf` (`cpf`);
 
 --
--- Índices para tabela `endereco`
+-- Índices de tabela `endereco`
 --
 ALTER TABLE `endereco`
   ADD PRIMARY KEY (`id_endereco`),
@@ -240,7 +253,7 @@ ALTER TABLE `endereco`
   ADD KEY `id_imovel` (`id_imovel`);
 
 --
--- Índices para tabela `fiador`
+-- Índices de tabela `fiador`
 --
 ALTER TABLE `fiador`
   ADD PRIMARY KEY (`id_fiador`),
@@ -249,14 +262,14 @@ ALTER TABLE `fiador`
   ADD UNIQUE KEY `cpf` (`cpf`);
 
 --
--- Índices para tabela `imovel`
+-- Índices de tabela `imovel`
 --
 ALTER TABLE `imovel`
   ADD PRIMARY KEY (`id_imovel`),
   ADD KEY `id_proprietario` (`id_proprietario`);
 
 --
--- Índices para tabela `inquilino`
+-- Índices de tabela `inquilino`
 --
 ALTER TABLE `inquilino`
   ADD PRIMARY KEY (`id_inquilino`),
@@ -266,14 +279,14 @@ ALTER TABLE `inquilino`
   ADD KEY `id_fiador` (`id_fiador`);
 
 --
--- Índices para tabela `midia`
+-- Índices de tabela `midia`
 --
 ALTER TABLE `midia`
   ADD PRIMARY KEY (`id_midia`),
   ADD KEY `id_imovel` (`id_imovel`);
 
 --
--- Índices para tabela `proprietario`
+-- Índices de tabela `proprietario`
 --
 ALTER TABLE `proprietario`
   ADD PRIMARY KEY (`id_proprietario`),
@@ -282,14 +295,14 @@ ALTER TABLE `proprietario`
   ADD UNIQUE KEY `rg` (`rg`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `aluguel`
 --
 ALTER TABLE `aluguel`
-  MODIFY `id_aluguel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_aluguel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `corretor`
@@ -307,7 +320,7 @@ ALTER TABLE `fiador`
 -- AUTO_INCREMENT de tabela `imovel`
 --
 ALTER TABLE `imovel`
-  MODIFY `id_imovel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_imovel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `inquilino`
@@ -328,11 +341,11 @@ ALTER TABLE `proprietario`
   MODIFY `id_proprietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `aluguel`
+-- Restrições para tabelas `aluguel`
 --
 ALTER TABLE `aluguel`
   ADD CONSTRAINT `aluguel_ibfk_1` FOREIGN KEY (`id_imovel`) REFERENCES `imovel` (`id_imovel`),
@@ -340,7 +353,7 @@ ALTER TABLE `aluguel`
   ADD CONSTRAINT `aluguel_ibfk_3` FOREIGN KEY (`id_inquilino`) REFERENCES `inquilino` (`id_inquilino`);
 
 --
--- Limitadores para a tabela `endereco`
+-- Restrições para tabelas `endereco`
 --
 ALTER TABLE `endereco`
   ADD CONSTRAINT `endereco_ibfk_1` FOREIGN KEY (`id_proprietario`) REFERENCES `proprietario` (`id_proprietario`),
@@ -349,19 +362,19 @@ ALTER TABLE `endereco`
   ADD CONSTRAINT `endereco_ibfk_4` FOREIGN KEY (`id_imovel`) REFERENCES `imovel` (`id_imovel`);
 
 --
--- Limitadores para a tabela `imovel`
+-- Restrições para tabelas `imovel`
 --
 ALTER TABLE `imovel`
   ADD CONSTRAINT `imovel_ibfk_1` FOREIGN KEY (`id_proprietario`) REFERENCES `proprietario` (`id_proprietario`);
 
 --
--- Limitadores para a tabela `inquilino`
+-- Restrições para tabelas `inquilino`
 --
 ALTER TABLE `inquilino`
   ADD CONSTRAINT `inquilino_ibfk_1` FOREIGN KEY (`id_fiador`) REFERENCES `fiador` (`id_fiador`);
 
 --
--- Limitadores para a tabela `midia`
+-- Restrições para tabelas `midia`
 --
 ALTER TABLE `midia`
   ADD CONSTRAINT `midia_ibfk_1` FOREIGN KEY (`id_imovel`) REFERENCES `imovel` (`id_imovel`);
