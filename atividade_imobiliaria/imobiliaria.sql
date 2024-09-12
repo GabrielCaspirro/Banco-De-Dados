@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09/09/2024 às 11:20
+-- Tempo de geração: 12/09/2024 às 02:46
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -69,7 +69,7 @@ CREATE TABLE `corretor` (
 --
 
 INSERT INTO `corretor` (`id_corretor`, `email`, `telefone`, `rg`, `nome`, `cpf`) VALUES
-(1, 'joao.silva@example.com', '1234-5678', '12.345.678-9', 'João Silva', '123.456.789-00'),
+(1, 'joao.silva@gmail.com', '1234-5678', '12.345.678-9', 'João Silva', '123.456.789-00'),
 (2, 'maria.santos@example.com', '2345-6789', '98.765.432-1', 'Maria Santos', '987.654.321-00'),
 (3, 'pedro.oliveira@example.com', '3456-7890', '23.456.789-0', 'Pedro Oliveira', '234.567.890-12'),
 (4, 'ana.pereira@example.com', '4567-8901', '34.567.890-1', 'Ana Pereira', '345.678.901-23'),
@@ -95,6 +95,16 @@ CREATE TABLE `endereco` (
   `id_imovel` int(11) DEFAULT NULL,
   `id_proprietario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Despejando dados para a tabela `endereco`
+--
+
+INSERT INTO `endereco` (`numero`, `cep`, `cidade`, `estado`, `bairro`, `rua`, `id_endereco`, `complemento`, `id_fiador`, `id_corretor`, `id_imovel`, `id_proprietario`) VALUES
+('123', '12345-678', 'São Paulo', 'SP', 'Centro', 'Rua A', 1, 'Apto 101', 1, 1, 1, 1),
+('456', '98765-432', 'Rio de Janeiro', 'RJ', 'Copacabana', 'Avenida B', 2, 'Casa 2', 2, 2, 2, 2),
+('789', '45678-123', 'Belo Horizonte', 'MG', 'Savassi', 'Rua C', 3, 'Cobertura', 3, 3, 3, 3),
+('101', '65432-876', 'Curitiba', 'PR', 'Água Verde', 'Rua D', 4, NULL, 4, 4, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -149,10 +159,10 @@ CREATE TABLE `imovel` (
 --
 
 INSERT INTO `imovel` (`id_imovel`, `lavanderia`, `alugado`, `area`, `comodos`, `quintal`, `suite`, `piscina`, `id_proprietario`, `QtBanheiros`, `Garagem`, `bairro`, `cidade`, `preco`) VALUES
-(1, 1, 0, '100m²', 4, 1, 0, 1, 1, 1, b'1', NULL, NULL, NULL),
-(2, 1, 1, '80m²', 6, 0, 1, 0, 2, 2, b'1', NULL, NULL, NULL),
-(3, 1, 0, '120m²', 2, 1, 1, 1, 3, 1, b'0', NULL, NULL, NULL),
-(4, 1, 1, '90m²', 4, 1, 0, 0, 4, 1, b'0', NULL, NULL, NULL);
+(1, 1, 0, '100m²', 4, 1, 0, 1, 1, 1, b'1', 'Jardim das Flores', 'Ribeirão Pires', 2468.70),
+(2, 1, 1, '80m²', 6, 0, 1, 0, 2, 2, b'1', 'Jardim Bom e Bonito', 'Ribeirão Pires', 468.00),
+(3, 1, 0, '120m²', 2, 1, 1, 1, 3, 1, b'0', 'Bairro Um Dois Três', 'Mauá', 1626.30),
+(4, 1, 1, '90m²', 4, 1, 0, 0, 4, 1, b'0', 'Bairro Barros', 'Mauá', 2796.30);
 
 -- --------------------------------------------------------
 
