@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16-Set-2024 às 14:05
+-- Tempo de geração: 30-Set-2024 às 14:00
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.0.25
 
@@ -152,34 +152,35 @@ INSERT INTO `estaciona` (`codEstaciona`, `horSaida`, `dtEntrada`, `horEntrada`, 
 CREATE TABLE `modelo` (
   `codModelo` int(11) NOT NULL,
   `modelo` varchar(30) DEFAULT NULL,
-  `ano_fabricacao` varchar(10) DEFAULT NULL
+  `ano_fabricacao` varchar(10) DEFAULT NULL,
+  `descricao` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `modelo`
 --
 
-INSERT INTO `modelo` (`codModelo`, `modelo`, `ano_fabricacao`) VALUES
-(1, 'Honda Civic', '2020'),
-(2, 'Toyota Corolla', '2019'),
-(3, 'Chevrolet Onix', '2018'),
-(4, 'Fiat Uno', '2021'),
-(5, 'Volkswagen Golf', '2022'),
-(6, 'Renault Kwid', '2017'),
-(7, 'Hyundai HB20', '2016'),
-(8, 'Ford Ka', '2015'),
-(9, 'Nissan Versa', '2014'),
-(10, 'Peugeot 208', '2013'),
-(11, 'Chevrolet Cruze', '2023'),
-(12, 'Jeep Renegade', '2012'),
-(13, 'BMW X1', '2011'),
-(14, 'Mercedes-Benz C200', '2010'),
-(15, 'Audi A3', '2009'),
-(16, 'Toyota Hilux', '2008'),
-(17, 'Ford Ranger', '2007'),
-(18, 'Volkswagen Tiguan', '2006'),
-(19, 'Kia Sportage', '2005'),
-(20, 'Hyundai Tucson', '2004');
+INSERT INTO `modelo` (`codModelo`, `modelo`, `ano_fabricacao`, `descricao`) VALUES
+(1, 'Honda Civic', '2020', 'Sedan compacto'),
+(2, 'Toyota Corolla', '2019', 'Sedan médio'),
+(3, 'Chevrolet Onix', '2018', 'Hatch compacto'),
+(4, 'Fiat Uno', '2021', 'Hatch popular'),
+(5, 'Volkswagen Golf', '2022', 'Hatch premium'),
+(6, 'Renault Kwid', '2017', 'Mini SUV'),
+(7, 'Hyundai HB20', '2016', 'Hatch compacto'),
+(8, 'Ford Ka', '2015', 'Hatch popular'),
+(9, 'Nissan Versa', '2014', 'Sedan compacto'),
+(10, 'Peugeot 208', '2013', 'Hatch compacto'),
+(11, 'Chevrolet Cruze', '2023', 'Sedan médio'),
+(12, 'Jeep Renegade', '2012', 'SUV compacto'),
+(13, 'BMW X1', '2011', 'SUV premium'),
+(14, 'Mercedes-Benz C200', '2010', 'Sedan executivo'),
+(15, 'Audi A3', '2009', 'Hatch premium'),
+(16, 'Toyota Hilux', '2008', 'Picape média'),
+(17, 'Ford Ranger', '2007', 'Picape média'),
+(18, 'Volkswagen Tiguan', '2006', 'SUV médio'),
+(19, 'Kia Sportage', '2005', 'SUV compacto'),
+(20, 'Hyundai Tucson', '2004', 'SUV médio');
 
 -- --------------------------------------------------------
 
