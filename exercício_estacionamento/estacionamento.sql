@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Set-2024 às 14:00
--- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.0.25
+-- Tempo de geração: 30/09/2024 às 23:38
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,7 @@ USE `estacionamento`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `andar`
+-- Estrutura para tabela `andar`
 --
 
 CREATE TABLE `andar` (
@@ -36,7 +36,7 @@ CREATE TABLE `andar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `andar`
+-- Despejando dados para a tabela `andar`
 --
 
 INSERT INTO `andar` (`codLugar`, `capacidade`, `andar`) VALUES
@@ -64,7 +64,7 @@ INSERT INTO `andar` (`codLugar`, `capacidade`, `andar`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cliente`
+-- Estrutura para tabela `cliente`
 --
 
 CREATE TABLE `cliente` (
@@ -74,7 +74,7 @@ CREATE TABLE `cliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `cliente`
+-- Despejando dados para a tabela `cliente`
 --
 
 INSERT INTO `cliente` (`cpf`, `nome`, `dtnasc`) VALUES
@@ -103,7 +103,7 @@ INSERT INTO `cliente` (`cpf`, `nome`, `dtnasc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `estaciona`
+-- Estrutura para tabela `estaciona`
 --
 
 CREATE TABLE `estaciona` (
@@ -117,7 +117,7 @@ CREATE TABLE `estaciona` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `estaciona`
+-- Despejando dados para a tabela `estaciona`
 --
 
 INSERT INTO `estaciona` (`codEstaciona`, `horSaida`, `dtEntrada`, `horEntrada`, `dtSaida`, `placa`, `codLugar`) VALUES
@@ -146,7 +146,7 @@ INSERT INTO `estaciona` (`codEstaciona`, `horSaida`, `dtEntrada`, `horEntrada`, 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `modelo`
+-- Estrutura para tabela `modelo`
 --
 
 CREATE TABLE `modelo` (
@@ -157,7 +157,7 @@ CREATE TABLE `modelo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `modelo`
+-- Despejando dados para a tabela `modelo`
 --
 
 INSERT INTO `modelo` (`codModelo`, `modelo`, `ano_fabricacao`, `descricao`) VALUES
@@ -185,7 +185,7 @@ INSERT INTO `modelo` (`codModelo`, `modelo`, `ano_fabricacao`, `descricao`) VALU
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `veiculo`
+-- Estrutura para tabela `veiculo`
 --
 
 CREATE TABLE `veiculo` (
@@ -196,7 +196,7 @@ CREATE TABLE `veiculo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `veiculo`
+-- Despejando dados para a tabela `veiculo`
 --
 
 INSERT INTO `veiculo` (`placa`, `cor`, `cpf`, `codModelo`) VALUES
@@ -227,19 +227,19 @@ INSERT INTO `veiculo` (`placa`, `cor`, `cpf`, `codModelo`) VALUES
 --
 
 --
--- Índices para tabela `andar`
+-- Índices de tabela `andar`
 --
 ALTER TABLE `andar`
   ADD PRIMARY KEY (`codLugar`);
 
 --
--- Índices para tabela `cliente`
+-- Índices de tabela `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`cpf`);
 
 --
--- Índices para tabela `estaciona`
+-- Índices de tabela `estaciona`
 --
 ALTER TABLE `estaciona`
   ADD PRIMARY KEY (`codEstaciona`),
@@ -247,13 +247,13 @@ ALTER TABLE `estaciona`
   ADD KEY `codLugar` (`codLugar`);
 
 --
--- Índices para tabela `modelo`
+-- Índices de tabela `modelo`
 --
 ALTER TABLE `modelo`
   ADD PRIMARY KEY (`codModelo`);
 
 --
--- Índices para tabela `veiculo`
+-- Índices de tabela `veiculo`
 --
 ALTER TABLE `veiculo`
   ADD PRIMARY KEY (`placa`),
@@ -261,18 +261,18 @@ ALTER TABLE `veiculo`
   ADD KEY `codModelo` (`codModelo`);
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `estaciona`
+-- Restrições para tabelas `estaciona`
 --
 ALTER TABLE `estaciona`
   ADD CONSTRAINT `estaciona_ibfk_1` FOREIGN KEY (`placa`) REFERENCES `veiculo` (`placa`),
   ADD CONSTRAINT `estaciona_ibfk_2` FOREIGN KEY (`codLugar`) REFERENCES `andar` (`codLugar`);
 
 --
--- Limitadores para a tabela `veiculo`
+-- Restrições para tabelas `veiculo`
 --
 ALTER TABLE `veiculo`
   ADD CONSTRAINT `veiculo_ibfk_1` FOREIGN KEY (`cpf`) REFERENCES `cliente` (`cpf`),
